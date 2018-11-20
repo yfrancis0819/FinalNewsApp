@@ -24,7 +24,9 @@ public class HttpHandler {
     private HttpHandler() {
     }
     public static List<News> fetchNewsData(String requestUrl){
+
         URL url = createUrl(requestUrl);
+
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -47,7 +49,7 @@ public class HttpHandler {
         return url;
     }
 
-    public static String makeHttpRequest(URL url) throws IOException {
+    private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
         if(url == null){

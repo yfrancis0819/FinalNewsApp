@@ -1,7 +1,8 @@
 package com.example.android.finalnewsapp;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
+import android.support.annotation.Nullable;
+import android.content.AsyncTaskLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -22,10 +23,12 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
     protected void onStartLoading() {
         forceLoad();
     }
+    @Override
 
-    public List<News> loadInBackground(){
+    public List<News> loadInBackground() {
         if (nUrl == null){
             return null;
+
         }
 
         List<News> news = HttpHandler.fetchNewsData(nUrl);

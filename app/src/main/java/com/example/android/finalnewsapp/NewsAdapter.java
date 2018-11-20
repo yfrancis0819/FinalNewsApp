@@ -10,19 +10,22 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class NewsAdapter extends ArrayAdapter<News> {
+public class   NewsAdapter extends ArrayAdapter<News> {
 
 
     public static final String Log_Tag = NewsActivity.class.getName();
 
-    public NewsAdapter(Activity context, ArrayList<News> articles){
+    public NewsAdapter(Activity context,ArrayList<News> articles){
         super (context, 0, articles);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View listItemView = convertView;
+
         if (listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
