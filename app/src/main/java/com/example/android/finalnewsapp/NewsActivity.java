@@ -20,21 +20,27 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
-import android.app.LoaderManager.LoaderCallbacks;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity
-             implements LoaderCallbacks<List<News>>{
-   // SharedPreferences.OnSharedPreferenceChangeListener {
 
+public class NewsActivity extends AppCompatActivity
+             implements LoaderManager.LoaderCallbacks<List<News>>{
 
     //**URL for news articles*/
     private static final String NEWS_QUERY_URL = "https://content.guardianapis.com/search?api-key=36a4f125-fc53-4098-be3d-f259802af783";
 
     //**Loader ID*/
-    private static final int NEWS_LOADER_ID = 1;
+    private static final int NEWS_LOADER_ID = 0;
+
+    private final static String PAGE_SIZE = "PAGE_SIZE";
+    private final static String TAGS = "TAGS";
+    private final static String AUTHOR = "AUTHOR";
+    private final static String SECTION = "SECTION";
+    private final static String QUERY = "QUERY";
+    private final static String ORDER_BY = "ORDER_BY";
+    private final static String API_KEY = "API_KEY";
+    private final static String MY_API_KEY = "THE_GUARDIAN_API_KEY";
 
     /**Adapter for list of articles*/
     private NewsAdapter nAdapter;
@@ -44,9 +50,8 @@ public class NewsActivity extends AppCompatActivity
 
     private ProgressBar loadingIndicator;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)throws NullPointerException {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
@@ -58,9 +63,6 @@ public class NewsActivity extends AppCompatActivity
 
         //**Set adapter on the list view*/
         newsListView.setAdapter(nAdapter);
-
-     //   SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-       // new SharedPreferences.OnSharedPreferenceChangeListener(this);
 
         try{
             nEmptyStateTextView = findViewById(R.id.empty_view);
@@ -81,19 +83,14 @@ public class NewsActivity extends AppCompatActivity
             loadingIndicator = findViewById ( R.id.loading_indicator );
             loadingIndicator.setVisibility ( View.GONE );
 
-            // set empty state to display "No internet connection."
             nEmptyStateTextView.setText ( R.string.no_internet_connection );
         }
     } catch (NullPointerException npe) {
         Log.e ( "NewsActivity", "No internet connection", npe );
     }
 
-
-
-
         //**Set a click listener on each item*/
-        newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        newsListView.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
@@ -115,55 +112,40 @@ public class NewsActivity extends AppCompatActivity
             }
         });}
 
-      //  **Get a reference to loader manager*/
-  //   LoaderManager loaderManager = getLoaderManager();
-
-            //**Initialize Loader*//
-    //        loaderManager.initLoader(NEWS_LOADER_ID, null, this);
-    //    }else {
-    //        View loadingIndicator = findViewById(R.id.loading_indicator);
-    //        loadingIndicator.setVisibility(View.GONE);
-
-         //   nEmptyStateTextView.setText(R.string.no_internet_connection);
-       // }}
-
-
-//   @Override
- //  public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
- //      if (key.equals(getString(R.string.settings_order_by_key)) || key.equals(getString(R.string.settings_order_by_label))){
-   //        nAdapter.clear();
-
-     //      nEmptyStateTextView.setVisibility(View.GONE);
-
-       //     View loadingIndicator = findViewById(R.id.loading_indicator);
-         //  loadingIndicator.setVisibility(View.VISIBLE);
-
-//            getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
-  //     }
-
- //  }
-
     @Override
     public Loader<List<News>>onCreateLoader(int i, Bundle bundle) {
 
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        return new NewsLoader(this, NEWS_QUERY_URL);
 
+        String minArticles = sharedPrefs.getString(
+                getString(R.string.settings_min_articles_key),
+                getString(R.string.settings_min_articles_default));
 
-         String sectionId = sharedPrefs.getString(
-          getString(R.string.settings_section_id_key),
-        getString(R.string.settings_section_id_default));
+        String section = sharedPrefs.getString(
+                getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
 
-       Uri baseUri = Uri.parse(NEWS_QUERY_URL);
+        String searchContent = sharedPrefs.getString(
+                getString(R.string.settings_search_content_TF),
+                getString(R.string.settings_search_content_default));
 
-        Uri.Builder uriBuilder =baseUri.buildUpon();
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
 
+        Uri baseUri = Uri.parse(NEWS_QUERY_URL);
 
-     uriBuilder.appendQueryParameter("format", "json");
-     uriBuilder.appendQueryParameter("limit", "10");
-//     uriBuilder.appendQueryParameter("sectionId",sectionid);
-        return new NewsLoader(this, uriBuilder.toString());
-   }
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter(PAGE_SIZE, minArticles);
+        uriBuilder.appendQueryParameter(TAGS, AUTHOR);
+        uriBuilder.appendQueryParameter(SECTION, section);
+        uriBuilder.appendQueryParameter(QUERY, searchContent);
+        uriBuilder.appendQueryParameter(ORDER_BY, orderBy);
+        uriBuilder.appendQueryParameter(API_KEY, MY_API_KEY);
+
+        return new NewsAdapter.NewsLoader(this, uriBuilder.toString());
+    }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
@@ -173,12 +155,12 @@ public class NewsActivity extends AppCompatActivity
         //**Clear Adapter*/
         nAdapter.clear();
 
-        nEmptyStateTextView.setText(R.string.no_news);
+       nEmptyStateTextView.setText(R.string.no_news);
 
         if (news != null && !news.isEmpty()) {
             nAdapter.addAll(news);
-
-        }}
+        }
+    }
         @Override
         public void onLoaderReset (Loader<List<News >> loader) {
             nAdapter.clear();

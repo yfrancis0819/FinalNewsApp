@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Fragmment
-    android:name="com.example.android.NewsApp2.SettingsActivity$NewsPreferenceFragment"
+<fragment
+    android:name="com.example.android.finalnewsapp.SettingsActivity$NewsPreferenceFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.finalnewsapp.SettingsActivity">
 
-</Fragmment>
+</fragment>

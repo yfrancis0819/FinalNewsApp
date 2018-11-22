@@ -6,7 +6,6 @@
     <string name="settings_section_id_key" translatable="false">section_id</string>
     <string name="settings_section_id_default" translatable="false">0</string>
 
-
     <string name="settings_order_by_label">Order By</string>
     <string name="settings_order_by_key" translatable="false">order_by</string>
     <string name="settings_order_by_default" translatable="false">@string/settings_order_by_label</string>
@@ -19,4 +18,44 @@
 
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="no_news">No News Found</string>
+
+    <string name="settings_min_articles_label">Minimum Articles Displayed</string>
+    <string name="settings_min_articles_key" translatable="false">min_articles</string>
+    <string name="settings_min_articles_default" translatable="false">20</string>
+
+    <string name="settings_section_label">Choose A Section</string>
+    <string name="settings_section_key" translatable="false">section</string>
+    <string name="settings_section_default" translatable="false">@string/settings_section_technology_value</string>
+
+    <string name="settings_section_technology">Technology</string>
+    <string name="settings_section_technology_value" translatable="false">technology</string>
+
+    <string name="settings_section_world">World News</string>
+    <string name="settings_section_world_TF" translatable="false">world</string>
+
+    <string name="settings_section_environment">Environment</string>
+    <string name="settings_section_environment_TF" translatable="false">environment</string>
+
+    <string name="settings_section_politics">Politics</string>
+    <string name="settings_section_politics_TF" translatable="false">politics</string>
+
+    <string name="settings_section_business">Business</string>
+    <string name="settings_section_business_TF" translatable="false">business</string>
+
+    <string name="settings_section_science">Science</string>
+    <string name="settings_section_science_TF" translatable="false">science</string>
+
+    <string name="settings_section_sport">Sports</string>
+    <string name="settings_section_sport_TF" translatable="false">sport</string>
+
+    <string name="settings_search_content">Search Content</string>
+    <string name="settings_search_content_TF" translatable="false">search_content</string>
+    <string name="settings_search_content_default" translatable="false">World News</string>
+
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
 </resources>

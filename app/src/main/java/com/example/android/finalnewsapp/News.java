@@ -4,7 +4,7 @@ public class News {
 
 
     //Title of article
-    private String aSectionId;
+    private String aSection;
 
     //Section article belongs to
     private String aTitle;
@@ -15,22 +15,22 @@ public class News {
     //Url
     private String aUrl;
 
+    private String aAuthor;
 
-    public News(String Title, String SectionID,  String Date, String url){
+    public News(String Title, String Section,  String Date, String url, String Author){
         aTitle = Title;
-        aSectionId = SectionID;
+        aSection = Section;
         aDate = Date;
         aUrl = url;
+        aAuthor = Author;
     }
-
-
 
     public String getTitle(){
         return aTitle;
     }
 
-    public String getSectionID(){
-        return aSectionId;
+    public String getSection(){
+        return aSection;
     }
 
     public String getDate() {
@@ -40,6 +40,8 @@ public class News {
     public String getUrl() {
         return aUrl;
     }
+
+    public String getAuthor() {return aAuthor;}
 }
 
 
