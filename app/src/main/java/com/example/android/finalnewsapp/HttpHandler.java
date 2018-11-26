@@ -19,10 +19,6 @@ import java.util.List;
 
 public class HttpHandler {
     private static final String LOG_TAG = HttpHandler.class.getSimpleName();
-    private static final int INDEX_ZERO = 0;
-    private static final int INDEX_ONE= 1;
-    private static final int INDEX_TWO = 2;
-    private static final int INDEX_THREE = 3;
 
     private HttpHandler() {
     }
@@ -37,36 +33,20 @@ public class HttpHandler {
             JSONObject response = baseJsonResponse.getJSONObject("response");
             JSONArray newsArray = response.getJSONArray("results");
 
-            /**Looping through all articles*/
+            //**Looping through all articles*/
             for(int i = 0; i < newsArray.length(); i++) {
-                JSONObject currentNews = newsArray.getJSONObject(i);
+                JSONObject properties = newsArray.getJSONObject(i);
 
-                String section = currentNews.getString("sectionName");
-                String webTitle = currentNews.getString("webTitle");
-                String webUrl = currentNews.getString("webUrl");
-                String webPublicationDate = currentNews.getString("webPublicationDate");
-                StringBuilder author = new StringBuilder ( "By: " );
-                JSONArray authorArray = currentNews.getJSONArray ( "tags" );
 
-                if (authorArray != null && authorArray.length () > INDEX_ZERO) {
+                String section = properties.getString("sectionName");
+                String webTitle = properties.getString("webTitle");
+                String webUrl = properties.getString("webUrl");
+                String webPublicationDate = properties.getString("webPublicationDate");
 
-                    for (int a = INDEX_ZERO; a < authorArray.length (); a++) {
-                        JSONObject authors = authorArray.getJSONObject ( a );
 
-                        String authorsListed = authors.optString ( "webTitle" );
-                        if (authorArray.length () > INDEX_ONE) {
-                            author.append ( authorsListed );
-                            author.append ( "\t\t\t" );
 
-                        } else {
-                            author.append ( authorsListed );
-                        }
-                    }
-                } else {
-                    author.replace ( INDEX_ZERO, INDEX_THREE, "No author(s) listed" );
-                }
 
-                News news1 = new News(webTitle, section, webPublicationDate, webUrl, author.toString());
+                News news1 = new News(webTitle, section, webPublicationDate, webUrl);
                 news.add(news1);
             }
 

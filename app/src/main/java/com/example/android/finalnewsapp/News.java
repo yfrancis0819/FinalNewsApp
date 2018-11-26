@@ -17,12 +17,11 @@ public class News {
 
     private String aAuthor;
 
-    public News(String Title, String Section,  String Date, String url, String Author){
+    public News(String Title, String Section, String Date, String url){
         aTitle = Title;
         aSection = Section;
         aDate = Date;
         aUrl = url;
-        aAuthor = Author;
     }
 
     public String getTitle(){
