@@ -28,7 +28,7 @@ public class NewsActivity extends AppCompatActivity
              implements LoaderManager.LoaderCallbacks<List<News>>{
 
     //**URL for news articles*/
-    private static final String NEWS_QUERY_URL = "https://content.guardianapis.com/search?api-key=36a4f125-fc53-4098-be3d-f259802af783";
+    private static final String NEWS_QUERY_URL = "http://content.guardianapis.com/search?show-tags=contributor&q=debates&api-key=test";
 
     //**Loader ID*/
     private static final int NEWS_LOADER_ID = 0;

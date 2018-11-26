@@ -45,8 +45,39 @@ public class HttpHandler {
 
 
 
+                StringBuilder author = new StringBuilder ( "By: " );
 
-                News news1 = new News(webTitle, section, webPublicationDate, webUrl);
+
+                JSONArray authorArray = properties.getJSONArray ( "tags" );
+
+
+                if (authorArray != null && authorArray.length () > 0) {
+
+
+                    for (int j = 0; j < authorArray.length (); j++) {
+
+
+                        JSONObject authors = authorArray.getJSONObject ( j );
+
+
+                        String authorsListed = authors.optString ( "webTitle" );
+
+
+                        if (authorArray.length () > 0) {
+                            author.append ( authorsListed );
+                            author.append ( "\t\t\t" );
+
+
+                        } else {
+                            author.append ( authorsListed );
+                        }
+                    }
+
+                } else {
+                    author.replace ( 0, 3, "No author(s) listed" );
+                }
+
+                News news1 = new News(webTitle, author.toString(), section, webPublicationDate, webUrl);
                 news.add(news1);
             }
 
@@ -117,7 +148,6 @@ public class HttpHandler {
 
         return output.toString();
     }
-
 
     public static List<News> fetchNewsData(String requestUrl){
 
