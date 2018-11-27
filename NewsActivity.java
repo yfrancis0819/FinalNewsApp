@@ -28,19 +28,19 @@ public class NewsActivity extends AppCompatActivity
              implements LoaderManager.LoaderCallbacks<List<News>>{
 
     //**URL for news articles*/
-    private static final String NEWS_QUERY_URL = "https://content.guardianapis.com/search?api-key=36a4f125-fc53-4098-be3d-f259802af783";
+    private static final String NEWS_QUERY_URL = "http://content.guardianapis.com/search?show-tags=contributor&q=debates&api-key=test";
 
     //**Loader ID*/
     private static final int NEWS_LOADER_ID = 0;
 
-    private final static String PAGE_SIZE = "PAGE_SIZE";
-    private final static String TAGS = "TAGS";
-    private final static String AUTHOR = "AUTHOR";
-    private final static String SECTION = "SECTION";
-    private final static String QUERY = "QUERY";
-    private final static String ORDER_BY = "ORDER_BY";
-    private final static String API_KEY = "API_KEY";
-    private final static String MY_API_KEY = "THE_GUARDIAN_API_KEY";
+    private final static String PAGE_SIZE = "pageSize";
+    private final static String TAGS = "tag";
+    private final static String AUTHOR = "show-references";
+    private final static String SECTION = "section";
+    private final static String QUERY = "q";
+    private final static String ORDER_BY = "order-by";
+    private final static String API_KEY = "api-key";
+    private final static String MY_API_KEY = "callback";
 
     /**Adapter for list of articles*/
     private NewsAdapter nAdapter;
